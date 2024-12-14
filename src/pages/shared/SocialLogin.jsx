@@ -1,14 +1,18 @@
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SocialLogin = () => {
   const { signInWithGoogle } = useContext(AuthContext);
+  const location = useLocation();
+  console.log(location);
+  const navigate = useNavigate();
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        console.log(result);
+        navigate(location.state || "/");
       })
       .catch((error) => {
         toast.error(error.message);

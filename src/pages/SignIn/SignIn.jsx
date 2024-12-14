@@ -4,11 +4,12 @@ import SocialLogin from "../shared/SocialLogin";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const { signInUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ const SignIn = () => {
       .then((result) => {
         if (result.user.email) {
           toast.success("Successfully registered");
-          navigate("/");
+          navigate(location.state || "/");
         }
       })
       .catch((error) => toast.error(error.message));
