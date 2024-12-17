@@ -31,8 +31,7 @@ const AddJob = () => {
         console.log(data);
         if (data.ok) {
           toast.success("Successfully added a job");
-          // navigate("/myPostedJobs");
-          navigate("/");
+          navigate("/myPostedJobs");
         }
       })
       .catch((error) => {
