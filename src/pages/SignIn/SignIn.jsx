@@ -5,6 +5,7 @@ import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignIn = () => {
   const { signInUser } = useContext(AuthContext);
@@ -20,6 +21,12 @@ const SignIn = () => {
     signInUser(email, password)
       .then((result) => {
         if (result.user.email) {
+          const user = { email: email };
+          axios
+            .post(`http://localhost:3000/jwt`, user, { withCredentials: true })
+            .then((res) => {
+              console.log(res.data);
+            });
           toast.success("Successfully registered");
           navigate(location.state || "/");
         }
